@@ -14,10 +14,10 @@
         .container {
             max-width: 600px;
             margin: auto;
-            background: var(--tg-theme-hint-color);
+            background: var(--tg-theme-bg-color);
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(70, 70, 70, 0.1);
         }
         h1 {
             text-align: center;
@@ -56,6 +56,44 @@
         .product button:hover {
             background-color: var(--tg-theme-bg-color);
         }
+
+        .login-panel {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px var(--tg-theme-secondary-bg-color);
+            width: 300px;
+        }
+
+        .login-panel h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-panel input[type="text"],
+        .login-panel input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-panel button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--tg-theme-button-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-panel button:hover {
+            background-color: var(--tg-theme-button-text-color);
+        }
     </style>
 </head>
 <body>
@@ -67,6 +105,12 @@
             <button>bay</button>
         </div>
     </div>
+    <h2>Login</h2>
+    <form action="#" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
