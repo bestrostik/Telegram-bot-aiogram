@@ -26,7 +26,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: https://github.com/bestrostik/Telegram-bot-aiogram/blame/06bace539d494fdb1198466cc38a378ead1e212b/site.html
+      url: ${{steps.deployment.outputs.page_url}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
