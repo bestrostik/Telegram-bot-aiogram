@@ -3,75 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Store</title>
+    <title>Telegram WebApp</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: var(--tg-theme-bg-color);
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: var(--tg-theme-header-bg-color);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(70, 70, 70, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: var(--tg-theme-text-color);
-        }
-        .product {
+            background-color: #f2f2f2;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .product img {
-            max-width: 80px;
-            border-radius: 4px;
-        }
-        .product h2 {
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            font-size: 18px;
-            color: var(--tg-theme-button-text-color);
-        }
-        .product .price {
-            font-weight: bold;
-            color: var(--tg-theme-button-color);
-        }
-        .product button {
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-button-color);
-            border: none;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .product button:hover {
-            background-color: var(--tg-theme-bg-color);
         }
 
-        .login-panel {
+        .container {
+            text-align: center;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 15px var(--tg-theme-secondary-bg-color);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
 
-        .login-panel h2 {
-            text-align: center;
+        .container h2 {
             margin-bottom: 20px;
         }
 
-        .login-panel input[type="text"],
-        .login-panel input[type="password"] {
+        input[type="text"], 
+        input[type="number"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -80,69 +39,60 @@
             box-sizing: border-box;
         }
 
-        .login-panel button {
-            width: 100%;
-            padding: 10px;
-            background-color: var(--tg-theme-button-color);
-            color: white;
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
         }
 
-        .login-panel button:hover {
-            background-color: var(--tg-theme-button-text-color);
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .close-btn {
+            background-color: #f44336;
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Online Store</h1>
-        <div class="product">
-            <img src="https://via.placeholder.com/80" alt="Product 1">
-            <p>Products nere:</p>
-            <button id = 'buy'>bay</button>
+        <h2>Send Data to Bot</h2>
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="number" id="age" placeholder="Enter your age" required>
+        <div class="buttons">
+            <button class="submit-btn" onclick="sendData()">Send</button>
+            <button class="close-btn" onclick="closeWebApp()">Close</button>
         </div>
     </div>
-    <h2>Login</h2>
-    <form action="#" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button id = 'order' type="submit">Login</button>
-    </form>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <script>
-        let tg = window.Telegram.WebApp;
-        let buy = document.getElementById('buy')
-        let order = document.getElementById('order');
-        tg.expand();
-        buy.addEventListener('click', ()=> {
-            document.getElementById('test'.style.display = 'none')
-            document.getElementById('username').value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name ;
-        })
-
-        order.addEventListener('click', ()=>{
-            document.getElementById('error').innerText = '';
-            let name = document.getElementById('username').value
-            let password = document.getElementById('username').value
-            if(name.length < 5){
-                document.getElementById('error').innerText = 'ERROR';
-                return
+        function sendData() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            if (name && age) {
+                const data = { name, age };
+                Telegram.WebApp.sendData(JSON.stringify(data)); // Send data to bot
+            } else {
+                alert('Please fill out all fields.');
             }
-            if(password.length < 5) {
-                document.getElementById('error').innerText = 'ERROR';
-                return
-            }
+        }
 
-            let data = {
-                name : name,
-                password : password
-            }
-            tg.sendData(JSON.stringify(data));
+        function closeWebApp() {
+            Telegram.WebApp.close(); // Close WebApp
+        }
 
-            tg.close();
-        })
+        // Initialize the WebApp
+        Telegram.WebApp.ready();
     </script>
 </body>
 </html>
